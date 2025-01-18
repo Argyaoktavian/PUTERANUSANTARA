@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUTERA NUSANTARA</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1d4ed8;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: relative;
+            min-height: 100vh;
+            background: var(--dark);
+            overflow: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: 0.3s;
+        }
+
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: aqua;
+            text-decoration: none;
+        }
+
+        .nav.scrolled .logo {
+            color: var(--dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav.scrolled .nav-link {
+            color: var(--dark);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            text-align: justify;
+            padding: 0 10%;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 800px; /* Perbesar max-width */
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+            width: 150%; /* Tambahkan width 100% */
+            text-align: left; /* Pastikan text-align left */
+            color:aqua
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.7s;
+            color: white;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.9s;
+        }
+
+        .hero-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            height: 80%;
+            background: url('/api/placeholder/1000/800') center/cover;
+            border-radius: 30px;
+            opacity: 0.7;
+        }
+
+        /* Services/Division Section */
+        .services {
+            padding: 8rem 5%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+    padding: 8rem 5%;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    position: relative;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-container {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.features-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.features-container h1 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.features-container p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #475569;
+}
+.features-container li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #475569;
+}
+
+.features-content {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.features-content h2 {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    transition: 0.3s;
+    background: rgba(241, 245, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-item:hover {
+    transform: translateX(10px);
+    background: rgba(249, 250, 251, 0.8);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: #2563eb;
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.feature-item h3 {
+    font-size: 1.2rem;
+    color: #1f2937;
+    margin: 0;
+    transition: 0.3s;
+}
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-image {
+                width: 50%;
+                opacity: 0.4;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                width: 100%;
+                right: -50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav" id="nav">
+            <a href="#" class="logo">Putera Nusantara</a>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link">Beranda</a>
+                <a href="#services" class="nav-link">Divisi</a>
+                <a href="#features" class="nav-link">Tentang Kami</a>
+                <a href="#contact" class="nav-link">Kontak</a>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">PERUSAHAAN OTOMOTIF VIRTUAL</h1>
+                <p class="hero-text">Bergabunglah dengan komunitas kami untuk mendapatkan pengalaman dalam dunia game terutama kategori simulasi</p>
+                <a href="#contact" class="hero-btn">Gabung</a>
+            </div>
+            <div class="hero-image"></div>
+        </div>
+    </header>
+
+    <section class="services" id="services">
+        <h2 class="section-title">Divisi Kami</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚌</div>
+                <h3 class="service-title">Bus Simulator Indonesia</h3>
+                <p>Layanan transportasi darat premium dengan armada bus modern untuk perjalanan yang nyaman dan aman. Dilengkapi dengan fasilitas terkini dan crew professional.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">✈️</div>
+                <h3 class="service-title">Real Flight Simulator</h3>
+                <p>Solusi penerbangan charter dan reguler dengan standar keamanan internasional. Memberikan pengalaman penerbangan yang eksklusif dan terpercaya.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚛</div>
+                <h3 class="service-title">TransLogistics</h3>
+                <p>Layanan logistik dan pengiriman kargo dengan jangkauan nasional dan internasional. Didukung armada truck modern dan sistem tracking realtime.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div>
+                <div class="features-container">
+                    <h1>Tentang Kami</h1>
+                    <p>Komunitas premium yang menyatukan para penggemar simulasi transportasi dari Bus Simulator Indonesia (BUSSID) dan Real Flight Simulator. Dan didirikan pada tahun 2024</p>
+                </div>
+                <div class="features-container">
+                    <h1>Visi Kami</h1>
+                    <p>Menjadi komunitas simulasi transportasi virtual terdepan yang menghadirkan pengalaman bermain yang realistis dan profesional, sembari membangun jaringan pemain yang solid dan berkualitas di Indonesia.</p>
+                    <h1>Misi kami</h1>
+                    <li>Menciptakan lingkungan bermain yang profesional dan terstruktur bagi para penggemar simulasi transportasi</li>
+                    <li>Mengembangkan standar operasional virtual yang mendekati realitas dunia transportasi</li>
+                    <li>Membangun komunitas yang solid dengan berbagi pengetahuan dan pengalaman antar anggota</li>
+                </div>
+            </div>
+            
+            <div class="features-content">
+                <h2>Mengapa Memilih Kami?</h2>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <h3>Pengalaman Bermain Yang Realistis</h3>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <h3>Komunitas yang Aktif</h3>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <h3>Peluang Kolaborasi</h3>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <h3>Kesempatan Belajar dan Berkembang</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact" style="padding: 8rem 5%; background: var(--dark); color: white;">
+        <h2 class="section-title" style="color: white;">Kontak Kami</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- Contact Form -->
+            <div>
+                <form style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nama</label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required style="width: 100%; padding: 1rem; border: none; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    </div>
+                    <div>
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required style="width: 100%; padding: 1rem; border: none; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    </div>
+                    <div>
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Pesan</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda di sini" required style="width: 100%; padding: 1rem; border: none; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);"></textarea>
+                    </div>
+                    <button type="submit" style="padding: 1rem 2.5rem; background: var(--primary); color: white; border: none; border-radius: 50px; font-weight: 500; transition: 0.3s; cursor: pointer;">
+                        Kirim Pesan
+                    </button>
+                </form>
+            </div>
+            <!-- Contact Info -->
+            <div>
+                <h3 style="margin-bottom: 1.5rem;">Informasi Kontak</h3>
+                <p><strong>Email:</strong> support@puteranusantara.com</p>
+                <p><strong>Telepon:</strong> +62 858 1341 9657</p>
+                <p><strong>Alamat:</strong> Jl. Raya tajur No. 2, bogor</p>
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Ikuti Kami</h3>
+                    <a href="#" style="margin-right: 1rem; color: var(--primary); text-decoration: none; font-size: 1.5rem;">Facebook</a>
+                    <a href="#" style="margin-right: 1rem; color: var(--primary); text-decoration: none; font-size: 1.5rem;">Instagram</a>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .feature-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+        
+    document.getElementById('contact').addEventListener('submit', function(e) {
+        e.preventDefault(); // Mencegah reload halaman
+        
+        // Ambil data dari form
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        // Nomor WhatsApp tujuan (ganti dengan nomor Anda, gunakan format internasional tanpa tanda "+")
+        const phoneNumber = "6281327737241";
+
+        // Format pesan
+        const whatsappMessage = `Halo, saya ${name}.\n\nEmail: ${email}\n\nPesan:\n${message}`;
+
+        // URL WhatsApp
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+        // Redirect ke WhatsApp
+        window.open(whatsappURL, '_blank');
+    });
+</script>
+
+    </script>
+</body>
+</html>
